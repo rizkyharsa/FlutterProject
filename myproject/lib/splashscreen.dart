@@ -1,7 +1,8 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, unnecessary_new
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:myproject/loginScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -56,13 +57,15 @@ with SingleTickerProviderStateMixin{
   void initState() {
     super.initState();
     controller = AnimationController(
-        duration: const Duration(milliseconds: 2000), vsync: this);
+        duration: const Duration(seconds: 2000), vsync: this);
     animation = Tween(begin: 0.0, end: 1.0).animate(controller)
       ..addListener(() {
         setState(() {
           if (animation.value > 0.99) {
             print('Sucess Login');
             //loadpref(this.context);
+            Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: ((context) => const loginPage())));
           }
         });
       });
@@ -77,8 +80,11 @@ with SingleTickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-        child: CircularProgressIndicator());
+    return new Center(
+        child: new Container(
+          padding: const EdgeInsets.all(20.0),
+          child: const LinearProgressIndicator(),
+        ));
   }
 }
 
